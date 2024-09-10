@@ -1,6 +1,118 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
-}
-<h1>@ViewData["Title"]</h1>
+﻿<head>
+    <style>
+        form {
+            --bg-light: #efefef;
+            --bg-dark: #707070;
+            --clr: #00bfff;
+            --clr-alpha: #9c9c9c60;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+        }
 
-<p>Use this page to detail your site's privacy policy.</p>
+        .form .input-span {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+        }
+
+        form input[type="text"] {
+            color: white;
+            border-radius: 0.5rem;
+            padding: 1rem 0.75rem;
+            width: 100%;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--clr-alpha);
+            outline: 2px solid var(--bg-dark);
+        }
+
+        form input[type="email"]:focus,
+        form input[type="password"]:focus {
+            outline: 2px solid var(--clr);
+        }
+
+        .label {
+            align-self: flex-start;
+            color: var(--clr);
+            font-weight: 600;
+        }
+
+        form .submit {
+            padding: 1rem 0.75rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-radius: 3rem;
+            background-color: var(--bg-dark);
+            color: var(--bg-light);
+            border: none;
+            cursor: pointer;
+            transition: all 300ms;
+            font-weight: 600;
+            font-size: .9rem;
+        }
+
+            form .submit:hover {
+                background-color: var(--clr);
+                color: var(--bg-dark);
+            }
+
+        .span {
+            text-decoration: none;
+            color: var(--bg-dark);
+        }
+
+            .span a {
+                color: var(--clr);
+            }
+
+        button {
+            padding: 15px 25px;
+            border: unset;
+            border-radius: 15px;
+            color: #212121;
+            z-index: 1;
+            background: #e8e8e8;
+            position: relative;
+            font-weight: 1000;
+            font-size: 17px;
+            -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+            box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+            transition: all 250ms;
+            overflow: hidden;
+        }
+
+            button::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 0;
+                border-radius: 15px;
+                background-color: #212121;
+                z-index: -1;
+                -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+                box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+                transition: all 250ms
+            }
+
+            button:hover {
+                color: #e8e8e8;
+            }
+
+                button:hover::before {
+                    width: 100%;
+                }
+
+    </style>
+</head>
+
+
