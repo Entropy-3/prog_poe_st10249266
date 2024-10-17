@@ -15,7 +15,14 @@ namespace prog_poe_st10249266.Controllers
 
         public IActionResult Index()
         {
+
+            // Pass products and userID to the view
+            int? userID = HttpContext.Session.GetInt32("userID");
+            ViewData["UserID"] = userID;
+
+
             return View();
+
         }
 
         public IActionResult Privacy()

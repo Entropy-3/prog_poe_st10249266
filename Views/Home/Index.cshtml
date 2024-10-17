@@ -97,7 +97,13 @@ button:hover:after {
 </head>
 
 <body>
-
+    @{
+        var userID = ViewData["userID"];
+    }
+    @if (userID != null)
+    {
+        <p>User ID: @userID</p>
+    }
     <button class="btn"> 
         Add Claim
     </button>

@@ -17,16 +17,17 @@ namespace prog_poe_st10249266.Models
 
         public string Password { get; set; }
 
-        public bool Admin { get; set; }
+        public bool isAdmin { get; set; }
 
         public int insert_User(UserTBL m)
         {
-            string sql = "INSERT INTO tblUsers (userName, userSurname, userEmail, userPassword) VALUES (@Name, @Surname, @Email, @Password)";
+            string sql = "INSERT INTO tblUsers (userName, userSurname, userEmail, userPassword, isAdmin) VALUES (@Name, @Surname, @Email, @Password, @Admin)";
             SqlCommand cmd = new SqlCommand(sql, con);
             cmd.Parameters.AddWithValue("@Name", m.Name);
             cmd.Parameters.AddWithValue("@Surname", m.Surname);
             cmd.Parameters.AddWithValue("@Email", m.Email);
             cmd.Parameters.AddWithValue("@Password", m.Password);
+            cmd.Parameters.AddWithValue("@Admin", m.isAdmin ? 1 : 0);
             con.Open();
             int rowsAffected = cmd.ExecuteNonQuery();
             con.Close();
