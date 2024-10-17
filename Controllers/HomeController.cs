@@ -28,15 +28,36 @@ namespace prog_poe_st10249266.Controllers
             return View();
         }
 
-        public IActionResult Login()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public UserTBL usrtbl = new UserTBL();
+
+        [HttpPost]
+        public ActionResult SignUp(UserTBL Users)
+        {
+            var result = usrtbl.insert_User(Users);
+            return RedirectToAction("Index", "Home");
+        }
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("userID");
+            return RedirectToAction("Index", "Home");
+        }
+
+
+        [HttpGet]
+        public ActionResult SignUp()
+        {
+            return View(usrtbl);
+        }
+        public ActionResult Login()
+        {
+            return View(usrtbl);
         }
     }
 }

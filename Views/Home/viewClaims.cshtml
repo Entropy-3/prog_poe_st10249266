@@ -53,44 +53,60 @@
             border-right: none;
         }
  
-.btn {
- width: 6.5em;
- height: 2.3em;
- margin: 0.5em;
- background: black;
- color: white;
- border: none;
- border-radius: 0.625em;
- font-size: 20px;
- font-weight: bold;
- cursor: pointer;
- position: relative;
- z-index: 1;
- overflow: hidden;
+        .btn {
+            width: 6.5em;
+            height: 2.3em;
+            margin: 0.5em;
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 0.625em;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
 }
 
-button:hover {
- color: black;
-}
+        .btn2 {
+            width: 6.5em;
+            height: 2.3em;
+            margin: 0.5em;
+            background: green;
+            color: white;
+            border: none;
+            border-radius: 0.625em;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
 
-button:after {
- content: "";
- background: white;
- position: absolute;
- z-index: -1;
- left: -20%;
- right: -20%;
- top: 0;
- bottom: 0;
- transform: skewX(-45deg) scale(0, 1);
- transition: all 0.5s;
-}
+        button:hover {
+            color: black;
+        }
 
-button:hover:after {
- transform: skewX(-45deg) scale(1, 1);
- -webkit-transition: all 0.5s;
- transition: all 0.5s;
-}
+        button:after {
+            content: "";
+            background: white;
+            position: absolute;
+            z-index: -1;
+            left: -20%;
+            right: -20%;
+            top: 0;
+            bottom: 0;
+            transform: skewX(-45deg) scale(0, 1);
+            transition: all 0.5s;
+        }
+
+        button:hover:after {
+            transform: skewX(-45deg) scale(1, 1);
+            -webkit-transition: all 0.5s;
+            transition: all 0.5s;
+        }
 
 
     </style>
@@ -118,7 +134,7 @@ button:hover:after {
                 <td>Approved</td>
                 <td>/PNG.3</td>
                 <td>
-                    <button class="btn">Approve</button>
+                    <button class="btn2">Approve</button>
                     <button class="btn">Reject</button>
                 </td>
             </tr>
@@ -130,7 +146,7 @@ button:hover:after {
                 <td>Pending</td>
                 <td>/proof.pdf</td>
                 <td>
-                    <button class="btn">Approve</button>
+                    <button class="btn2">Approve</button>
                     <button class="btn">Reject</button>
                 </td>
             </tr>
@@ -142,7 +158,7 @@ button:hover:after {
                 <td>Rejected</td>
                 <td>/proof2.pdf</td>
                 <td>
-                    <button class="btn">Approve</button>
+                    <button class="btn2">Approve</button>
                     <button class="btn">Reject</button>
                 </td>
             </tr>
@@ -154,7 +170,7 @@ button:hover:after {
                 <td>pending</td>
                 <td>/12.pdf</td>
                 <td>
-                    <button class="btn">Approve</button>
+                    <button class="btn2">Approve</button>
                     <button class="btn">Reject</button>
                 </td>
             </tr>
