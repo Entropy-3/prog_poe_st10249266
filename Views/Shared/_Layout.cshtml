@@ -25,9 +25,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Add Claim</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="viewClaims">View Claims</a>
                         </li>
+                        @if (ViewData["IsAdmin"] != null && (bool)ViewData["IsAdmin"])
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="viewClaims">View Claims</a>
+                            </li>
+                        }
+                    </ul>
                     </ul>
                 </div>
             </div>

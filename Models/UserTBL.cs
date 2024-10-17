@@ -17,7 +17,7 @@ namespace prog_poe_st10249266.Models
 
         public string Password { get; set; }
 
-        public int isAdmin { get; set; }
+        public int isAdmin { get; set; } = 0;
 
         public int insert_User(UserTBL m)
         {
