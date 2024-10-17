@@ -99,11 +99,21 @@ button:hover:after {
 <body>
     @{
         var userID = ViewData["userID"];
+        
     }
     @if (userID != null)
     {
         <p>User ID: @userID</p>
     }
+    @if (ViewData["IsAdmin"] != null && (bool)ViewData["IsAdmin"])
+    {
+        <p>Welcome, Admin!</p>
+    }
+    else
+    {
+        <p>Welcome, User!</p>
+    }
+
     <button class="btn"> 
         Add Claim
     </button>

@@ -17,7 +17,7 @@ namespace prog_poe_st10249266.Models
 
         public string Password { get; set; }
 
-        public bool isAdmin { get; set; }
+        public int isAdmin { get; set; }
 
         public int insert_User(UserTBL m)
         {
@@ -27,7 +27,7 @@ namespace prog_poe_st10249266.Models
             cmd.Parameters.AddWithValue("@Surname", m.Surname);
             cmd.Parameters.AddWithValue("@Email", m.Email);
             cmd.Parameters.AddWithValue("@Password", m.Password);
-            cmd.Parameters.AddWithValue("@Admin", m.isAdmin ? 1 : 0);
+            cmd.Parameters.AddWithValue("@Admin", m.isAdmin);
             con.Open();
             int rowsAffected = cmd.ExecuteNonQuery();
             con.Close();

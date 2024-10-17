@@ -13,17 +13,28 @@ namespace prog_poe_st10249266.Controllers
             _logger = logger;
         }
 
+        //public IActionResult Index()
+        //{
+
+        //    // Pass products and userID to the view
+        //    int? userID = HttpContext.Session.GetInt32("userID");
+        //    ViewData["UserID"] = userID;
+
+
+        //    return View();
+
+        //}
         public IActionResult Index()
         {
-
             // Pass products and userID to the view
             int? userID = HttpContext.Session.GetInt32("userID");
+            int? isAdmin = HttpContext.Session.GetInt32("isAdmin");
             ViewData["UserID"] = userID;
-
+            ViewData["IsAdmin"] = isAdmin == 1;
 
             return View();
-
         }
+
 
         public IActionResult Privacy()
         {
