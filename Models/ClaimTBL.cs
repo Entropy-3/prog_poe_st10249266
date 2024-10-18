@@ -18,6 +18,7 @@ namespace prog_poe_st10249266.Models
         public string userName { get; set; }
         public string userSurname { get; set; }
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
         // Insert a new claim into the database
         public int insertClaim(ClaimTBL m)
         {
@@ -35,6 +36,8 @@ namespace prog_poe_st10249266.Models
             return rowsAffected;
         }
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+        //get all pending claims from the database for the admin to view
         public static List<ClaimTBL> getPendingClaims()
         {
             List<ClaimTBL> claims = new List<ClaimTBL>();
@@ -67,6 +70,8 @@ namespace prog_poe_st10249266.Models
             return claims;
         }
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+        //get all claims from the databse based on which user is signed in
         public static List<ClaimTBL> getClaimsByUserId(int userId)
         {
             List<ClaimTBL> claims = new List<ClaimTBL>();
@@ -99,7 +104,7 @@ namespace prog_poe_st10249266.Models
 
             return claims;
         }
-
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
         //github copilot assisted with the swl statement
         public int UpdateClaimStatus(int claimID, string newStatus)
         {
@@ -114,3 +119,4 @@ namespace prog_poe_st10249266.Models
         }
     }
 }
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EOF~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\

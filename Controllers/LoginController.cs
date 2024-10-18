@@ -12,7 +12,8 @@ namespace prog_poe_st10249266.Controllers
             login = new LoginModel();
         }
 
-        
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
         [HttpPost]
         public ActionResult Login(string email, string password)
         {
@@ -32,3 +33,4 @@ namespace prog_poe_st10249266.Controllers
         }
     }
 }
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EOF~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\

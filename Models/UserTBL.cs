@@ -19,6 +19,8 @@ namespace prog_poe_st10249266.Models
 
         public int isAdmin { get; set; } = 0;
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+        //allows the user to register
         public int insert_User(UserTBL m)
         {
             string sql = "INSERT INTO tblUsers (userName, userSurname, userEmail, userPassword, isAdmin) VALUES (@Name, @Surname, @Email, @Password, @Admin)";
@@ -35,3 +37,4 @@ namespace prog_poe_st10249266.Models
         }
     }
 }
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EOF~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\

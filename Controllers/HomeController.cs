@@ -14,16 +14,8 @@ namespace prog_poe_st10249266.Controllers
             _logger = logger;
         }
 
-        //public IActionResult Index()
-        //{
-        //    int? userID = HttpContext.Session.GetInt32("userID");
-        //    int? isAdmin = HttpContext.Session.GetInt32("isAdmin");
-        //    ViewData["UserID"] = userID;
-        //    ViewData["IsAdmin"] = isAdmin == 1;
-
-        //    return View();
-        //}
-
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+        //method that autopopulates the home page with the users claims
         public IActionResult Index()
         {
             int? userID = HttpContext.Session.GetInt32("userID");
@@ -41,7 +33,7 @@ namespace prog_poe_st10249266.Controllers
             return View(claims);
         }
 
-
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
         public IActionResult Privacy()
         {
             int? userID = HttpContext.Session.GetInt32("userID");
@@ -49,15 +41,15 @@ namespace prog_poe_st10249266.Controllers
             return View();
         }
 
-        
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+        //method that allows the user to add a claim
         [HttpPost]
         public IActionResult addClaim(int hoursWorked, int hourlyRate, IFormFile SupportingDocuments)
         {
             int? userID = HttpContext.Session.GetInt32("userID");
             if (userID == null)
             {
-                // Handle the case where the user is not logged in
                 return RedirectToAction("Login", "Home");
             }
 
@@ -66,12 +58,10 @@ namespace prog_poe_st10249266.Controllers
 
             if (string.IsNullOrEmpty(fileURL))
             {
-                // Handle the case where the file URL is not set
                 ModelState.AddModelError("", "File upload failed. Please try again.");
                 return View("Privacy");
             }
 
-            // Create a new claim
             ClaimTBL claim = new ClaimTBL
             {
                 userID = userID.Value,
@@ -82,13 +72,11 @@ namespace prog_poe_st10249266.Controllers
                 claimStatus = "pending"
             };
 
-            // Insert the claim into the database
             ClaimTBL claimTbl = new ClaimTBL();
             int rowsAffected = claimTbl.insertClaim(claim);
 
             if (rowsAffected == 0)
             {
-                // Handle the case where the claim was not inserted
                 ModelState.AddModelError("", "Failed to insert claim. Please try again.");
                 return View("Privacy");
             }
@@ -96,7 +84,9 @@ namespace prog_poe_st10249266.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
         //github copilot assisted me with the logic for this method
+        //method that saves the file to root and returns the file path
         private string SaveFile(IFormFile file)
         {
             if (file == null || file.Length == 0)
@@ -117,10 +107,8 @@ namespace prog_poe_st10249266.Controllers
             return "/uploads/" + uniqueFileName;
         }
 
-        //public IActionResult viewClaims()
-        //{
-        //    return View();
-        //}
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+        //method that allows the user to view claims
         public IActionResult ViewClaims()
         {
             int? userID = HttpContext.Session.GetInt32("userID");
@@ -144,12 +132,16 @@ namespace prog_poe_st10249266.Controllers
 
         public UserTBL usrtbl = new UserTBL();
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
         [HttpPost]
         public ActionResult SignUp(UserTBL Users)
         {
             var result = usrtbl.insert_User(Users);
             return RedirectToAction("Index", "Home");
         }
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+        //allows user to logout
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("userID");
@@ -157,16 +149,23 @@ namespace prog_poe_st10249266.Controllers
         }
 
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+        //allows the user to sign up
         [HttpGet]
         public ActionResult SignUp()
         {
             return View(usrtbl);
         }
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+        //allows the user to login
         public ActionResult Login()
         {
             return View(usrtbl);
         }
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+        //method that allows the admin to approve a claim
         [HttpPost]
         public IActionResult ApproveClaim(int claimID)
         {
@@ -175,6 +174,8 @@ namespace prog_poe_st10249266.Controllers
             return RedirectToAction("ViewClaims");
         }
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+        //allows the admin to reject a claim
         [HttpPost]
         public IActionResult RejectClaim(int claimID)
         {
@@ -187,3 +188,4 @@ namespace prog_poe_st10249266.Controllers
 
     }
 }
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EOF~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\

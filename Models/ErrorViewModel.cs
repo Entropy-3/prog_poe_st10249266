@@ -7,3 +7,4 @@ namespace prog_poe_st10249266.Models
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
     }
 }
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EOF~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
