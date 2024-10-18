@@ -100,5 +100,17 @@ namespace prog_poe_st10249266.Models
             return claims;
         }
 
+        //github copilot assisted with the swl statement
+        public int UpdateClaimStatus(int claimID, string newStatus)
+        {
+            string sql = "UPDATE tblClaims SET claimStatus = @NewStatus WHERE claim_id = @ClaimID";
+            SqlCommand cmd = new SqlCommand(sql, con);
+            cmd.Parameters.AddWithValue("@NewStatus", newStatus);
+            cmd.Parameters.AddWithValue("@ClaimID", claimID);
+            con.Open();
+            int rowsAffected = cmd.ExecuteNonQuery();
+            con.Close();
+            return rowsAffected;
+        }
     }
 }

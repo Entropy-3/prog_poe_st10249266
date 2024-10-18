@@ -111,8 +111,12 @@
 
     </style>
 </head>
+@{
+    var userID = ViewData["userID"];
 
+}
 <body>
+    <h1 class="text-center" style="text-align: center; color: #fff; margin-top: 20px;">View Claims</h1>
     <table>
         <thead>
             <tr>
@@ -153,8 +157,14 @@
                         }
                     </td>
                     <td>
-                        <button class="btn2">Approve</button>
-                        <button class="btn">Reject</button>
+                        <form asp-action="ApproveClaim" method="post">
+                            <input type="hidden" name="claimID" value="@Model[i].claimID" />
+                            <button type="submit" class="btn2">Approve</button>
+                        </form>
+                        <form asp-action="RejectClaim" method="post">
+                            <input type="hidden" name="claimID" value="@Model[i].claimID" />
+                            <button type="submit" class="btn">Reject</button>
+                        </form>
                     </td>
                 </tr>
             }

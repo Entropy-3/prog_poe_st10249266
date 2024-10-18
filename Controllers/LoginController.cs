@@ -27,7 +27,7 @@ namespace prog_poe_st10249266.Controllers
             else
             {
                 TempData["AlertMessage"] = "Username or password is incorrect!";
-                return RedirectToAction("Login", "User");
+                return RedirectToAction("Login", "Home");
             }
         }
     }

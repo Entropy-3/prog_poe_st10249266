@@ -114,26 +114,13 @@
 
     </style>
 </head>
+@{
+    var userID = ViewData["userID"];
 
+}
+<h1 class="text-center" style="text-align: center; color: #fff; margin-top: 20px;">Add Claims</h1>
 <body style="background-color:#1a1a1a">
-    @* <form class="form" asp-action="Privacy" method="post" enctype="multipart/form-data">
-        <span class="input-span">
-            <label class="label">Hours Worked:</label>
-            <input type="text" name="hoursWorked" required>
-        </span>
-        <span class="input-span">
-            <label class="label">Hourly Rate:</label>
-            <input type="text" name="hourlyRate" required>
-        </span>
-        <input type="hidden" name="ClaimStatus" value="pending">
-        <span class="input-span">
-            <label class="label">Supporting Documents:</label>
-            <input type="file" name="SupportingDocuments" required>
-        </span>
-        <div style="text-align:center">
-            <button type="submit">Submit</button>
-        </div>
-    </form> *@
+
     <form class="form" asp-action="addClaim" method="post" enctype="multipart/form-data">
         <span class="input-span">
             <label class="label">Hours Worked:</label>

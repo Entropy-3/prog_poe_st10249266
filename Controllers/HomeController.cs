@@ -44,6 +44,8 @@ namespace prog_poe_st10249266.Controllers
 
         public IActionResult Privacy()
         {
+            int? userID = HttpContext.Session.GetInt32("userID");
+            ViewData["UserID"] = userID;
             return View();
         }
 
@@ -122,6 +124,7 @@ namespace prog_poe_st10249266.Controllers
         public IActionResult ViewClaims()
         {
             int? userID = HttpContext.Session.GetInt32("userID");
+            ViewData["UserID"] = userID;
             if (userID == null)
             {
                 // Handle the case where the user is not logged in
@@ -164,6 +167,23 @@ namespace prog_poe_st10249266.Controllers
             return View(usrtbl);
         }
 
-        
+        [HttpPost]
+        public IActionResult ApproveClaim(int claimID)
+        {
+            ClaimTBL claim = new ClaimTBL();
+            claim.UpdateClaimStatus(claimID, "Approved");
+            return RedirectToAction("ViewClaims");
+        }
+
+        [HttpPost]
+        public IActionResult RejectClaim(int claimID)
+        {
+            ClaimTBL claim = new ClaimTBL();
+            claim.UpdateClaimStatus(claimID, "Rejected");
+            return RedirectToAction("ViewClaims");
+        }
+
+
+
     }
 }
