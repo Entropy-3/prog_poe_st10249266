@@ -14,6 +14,16 @@ namespace prog_poe_st10249266.Controllers
             _logger = logger;
         }
 
+        //public IActionResult Index()
+        //{
+        //    int? userID = HttpContext.Session.GetInt32("userID");
+        //    int? isAdmin = HttpContext.Session.GetInt32("isAdmin");
+        //    ViewData["UserID"] = userID;
+        //    ViewData["IsAdmin"] = isAdmin == 1;
+
+        //    return View();
+        //}
+
         public IActionResult Index()
         {
             int? userID = HttpContext.Session.GetInt32("userID");
@@ -21,8 +31,16 @@ namespace prog_poe_st10249266.Controllers
             ViewData["UserID"] = userID;
             ViewData["IsAdmin"] = isAdmin == 1;
 
-            return View();
+            if (userID == null)
+            {
+                // Handle the case where the user is not logged in
+                return RedirectToAction("Login", "Home");
+            }
+
+            List<ClaimTBL> claims = ClaimTBL.getClaimsByUserId(userID.Value);
+            return View(claims);
         }
+
 
         public IActionResult Privacy()
         {
@@ -64,7 +82,7 @@ namespace prog_poe_st10249266.Controllers
 
             // Insert the claim into the database
             ClaimTBL claimTbl = new ClaimTBL();
-            int rowsAffected = claimTbl.insert_Claim(claim);
+            int rowsAffected = claimTbl.insertClaim(claim);
 
             if (rowsAffected == 0)
             {
@@ -97,9 +115,21 @@ namespace prog_poe_st10249266.Controllers
             return "/uploads/" + uniqueFileName;
         }
 
-        public IActionResult viewClaims()
+        //public IActionResult viewClaims()
+        //{
+        //    return View();
+        //}
+        public IActionResult ViewClaims()
         {
-            return View();
+            int? userID = HttpContext.Session.GetInt32("userID");
+            if (userID == null)
+            {
+                // Handle the case where the user is not logged in
+                return RedirectToAction("Login", "Home");
+            }
+
+            List<ClaimTBL> claims = ClaimTBL.getPendingClaims();
+            return View(claims);
         }
 
 

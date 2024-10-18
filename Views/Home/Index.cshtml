@@ -109,7 +109,7 @@ button:hover:after {
     {
         <p>Welcome, Admin!</p>
     }
-    else
+    @if(ViewData["IsUser"] != null && (bool)ViewData["IsUser"])
     {
         <p>Welcome, User!</p>
     }
@@ -122,37 +122,38 @@ button:hover:after {
             <tr>
                 <th>Claim ID</th>
                 <th>Hourly Rate</th>
-                <th>Hours worked</th>
+                <th>Hours Worked</th>
                 <th>Amount Due</th>
                 <th>Claim Status</th>
                 <th>Documents</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>01</td>
-                <td>R10</td>
-                <td>40</td>
-                <td>R400</td>
-                <td>Approved</td>
-                <td>/PNG.3</td>
-            </tr>
-            <tr>
-                <td>02</td>
-                <td>R11</td>
-                <td>41</td>
-                <td>R451</td>
-                <td>Pending</td>
-                <td>/proof.pdf</td>
-            </tr>
-            <tr>
-                <td>03</td>
-                <td>R20</td>
-                <td>30</td>
-                <td>R600</td>
-                <td>Rejected</td>
-                <td>/proof2.pdf</td>
-            </tr>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>@Model[i].claimID</td>
+                    <td>@Model[i].hourlyrate</td>
+                    <td>@Model[i].hoursWorked</td>
+                    <td>@Model[i].amountDue</td>
+                    <td>@Model[i].claimStatus</td>
+                    <td>
+                        @* github copilot helped me with this *@
+                        @if (Model[i].fileURL != null)
+                        {
+                            var fileExtension = System.IO.Path.GetExtension(Model[i].fileURL).ToLower();
+                            if (fileExtension == ".jpg" || fileExtension == ".jpeg" || fileExtension == ".png" || fileExtension == ".gif")
+                            {
+                                <img src="@Model[i].fileURL" alt="File Preview" style="max-width: 100px; max-height: 100px;" />
+                            }
+                            else
+                            {
+                                <a href="@Model[i].fileURL" target="_blank">Download File</a>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 </body>

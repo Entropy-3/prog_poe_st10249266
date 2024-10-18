@@ -15,9 +15,11 @@ namespace prog_poe_st10249266.Models
         public int hourlyrate { get; set; }
         public int amountDue { get; set; }
         public string claimStatus { get; set; }
+        public string userName { get; set; }
+        public string userSurname { get; set; }
 
         // Insert a new claim into the database
-        public int insert_Claim(ClaimTBL m)
+        public int insertClaim(ClaimTBL m)
         {
             string sql = "INSERT INTO tblClaims (user_id, fileURL, hoursWorked, hourlyrate, amountDue, claimStatus) VALUES (@UserID, @FileURL, @HoursWorked, @HourlyRate, @AmountDue, @ClaimStatus)";
             SqlCommand cmd = new SqlCommand(sql, con);
@@ -33,14 +35,16 @@ namespace prog_poe_st10249266.Models
             return rowsAffected;
         }
 
-        // Select all claims from database based on userID using an object list to store the results
-        public static List<ClaimTBL> GetClaims(int userID)
+        public static List<ClaimTBL> getPendingClaims()
         {
             List<ClaimTBL> claims = new List<ClaimTBL>();
 
-            string sql = "SELECT claim_id, user_id, fileURL, hoursWorked, hourlyrate, amountDue, claimStatus FROM tblClaims WHERE user_id = @userID";
+            string sql = @"
+            SELECT c.claim_id, c.user_id, c.fileURL, c.hoursWorked, c.hourlyrate, c.amountDue, c.claimStatus, u.userName, u.userSurname
+            FROM tblClaims c
+            JOIN tblUsers u ON c.user_id = u.user_id
+            WHERE c.claimStatus = 'pending'";
             SqlCommand cmd = new SqlCommand(sql, con);
-            cmd.Parameters.AddWithValue("@userID", userID);
             con.Open();
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -53,6 +57,41 @@ namespace prog_poe_st10249266.Models
                 claim.hourlyrate = Convert.ToInt32(reader["hourlyrate"]);
                 claim.amountDue = Convert.ToInt32(reader["amountDue"]);
                 claim.claimStatus = Convert.ToString(reader["claimStatus"]);
+                claim.userName = Convert.ToString(reader["userName"]);
+                claim.userSurname = Convert.ToString(reader["userSurname"]);
+                claims.Add(claim);
+            }
+            reader.Close();
+            con.Close();
+
+            return claims;
+        }
+
+        public static List<ClaimTBL> getClaimsByUserId(int userId)
+        {
+            List<ClaimTBL> claims = new List<ClaimTBL>();
+
+            string sql = @"
+            SELECT c.claim_id, c.user_id, c.fileURL, c.hoursWorked, c.hourlyrate, c.amountDue, c.claimStatus, u.userName, u.userSurname
+            FROM tblClaims c
+            JOIN tblUsers u ON c.user_id = u.user_id
+            WHERE c.user_id = @UserID";
+            SqlCommand cmd = new SqlCommand(sql, con);
+            cmd.Parameters.AddWithValue("@UserID", userId);
+            con.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                ClaimTBL claim = new ClaimTBL();
+                claim.claimID = Convert.ToInt32(reader["claim_id"]);
+                claim.userID = Convert.ToInt32(reader["user_id"]);
+                claim.fileURL = Convert.ToString(reader["fileURL"]);
+                claim.hoursWorked = Convert.ToInt32(reader["hoursWorked"]);
+                claim.hourlyrate = Convert.ToInt32(reader["hourlyrate"]);
+                claim.amountDue = Convert.ToInt32(reader["amountDue"]);
+                claim.claimStatus = Convert.ToString(reader["claimStatus"]);
+                claim.userName = Convert.ToString(reader["userName"]);
+                claim.userSurname = Convert.ToString(reader["userSurname"]);
                 claims.Add(claim);
             }
             reader.Close();
