@@ -53,6 +53,13 @@ namespace prog_poe_st10249266.Controllers
                 return RedirectToAction("Login", "Home");
             }
 
+            // Validate that hoursWorked and hourlyRate are not negative
+            if (hoursWorked < 0 || hourlyRate < 0)
+            {
+                ModelState.AddModelError("", "Hours worked and hourly rate must be non-negative values.");
+                return View("Privacy");
+            }
+
             // Save the uploaded file and get the file URL
             string fileURL = SaveFile(SupportingDocuments);
 
