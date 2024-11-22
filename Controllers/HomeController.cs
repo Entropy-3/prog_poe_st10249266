@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using prog_poe_st10249266.Models;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Security.Claims;
 
@@ -223,6 +224,26 @@ namespace prog_poe_st10249266.Controllers
             List<UserTBL> users = userTBL.GetUserDetails();
             return View(users);
         }
+
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+        // Method to display the edit form
+        public IActionResult EditUser(int id)
+        {
+            UserTBL userTBL = new UserTBL();
+            UserTBL user = userTBL.GetUserById(id);
+            return View(user);
+        }
+
+        // Method to handle the form submission
+        [HttpPost]
+        public IActionResult EditUser(UserTBL user)
+        {
+            UserTBL userTBL = new UserTBL();
+            userTBL.UpdateUser(user);
+            return RedirectToAction("LecturerDeatils");
+        }
+
 
     }
 }

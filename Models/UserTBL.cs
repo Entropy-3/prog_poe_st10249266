@@ -57,6 +57,44 @@ namespace prog_poe_st10249266.Models
             con.Close();
             return users;
         }
+
+        // Method to retrieve user details by ID
+        public UserTBL GetUserById(int id)
+        {
+            UserTBL user = null;
+            string sql = "SELECT user_ID, userSurname, userEmail, userName FROM tblUsers WHERE user_ID = @UserID";
+            SqlCommand cmd = new SqlCommand(sql, con);
+            cmd.Parameters.AddWithValue("@UserID", id);
+            con.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                user = new UserTBL
+                {
+                    UserID = reader.GetInt32(0),
+                    Surname = reader.GetString(1),
+                    Email = reader.GetString(2),
+                    Name = reader.GetString(3)
+                };
+            }
+            con.Close();
+            return user;
+        }
+
+        // Method to update user details
+        public int UpdateUser(UserTBL user)
+        {
+            string sql = "UPDATE tblUsers SET userSurname = @Surname, userEmail = @Email, userName = @UserName WHERE user_ID = @UserID";
+            SqlCommand cmd = new SqlCommand(sql, con);
+            cmd.Parameters.AddWithValue("@UserID", user.UserID);
+            cmd.Parameters.AddWithValue("@Surname", user.Surname);
+            cmd.Parameters.AddWithValue("@Email", user.Email);
+            cmd.Parameters.AddWithValue("@UserName", user.Name);
+            con.Open();
+            int rowsAffected = cmd.ExecuteNonQuery();
+            con.Close();
+            return rowsAffected;
+        }
     }
 }
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EOF~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
