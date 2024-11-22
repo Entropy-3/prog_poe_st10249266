@@ -37,6 +37,8 @@ namespace prog_poe_st10249266.Models
             return rowsAffected;
         }
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+        //method that allows the user to login and determines if the user is an admin or not
         public List<UserTBL> GetUserDetails()
         {
             List<UserTBL> users = new List<UserTBL>();
@@ -58,6 +60,7 @@ namespace prog_poe_st10249266.Models
             return users;
         }
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
         // Method to retrieve user details by ID
         public UserTBL GetUserById(int id)
         {
@@ -81,6 +84,7 @@ namespace prog_poe_st10249266.Models
             return user;
         }
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
         // Method to update user details
         public int UpdateUser(UserTBL user)
         {
