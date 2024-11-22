@@ -1,122 +1,22 @@
 ﻿<head>
     <style>
-        body {
-            background-color: #1a1a1a;
-            color: #fff;
-        }
-
-        table {
-            width: 80%;
-            padding: 10px;
-            border-radius: 20px;
-            background-color: #1a1a1a;
-            color: #fff;
-            border: 3px solid #333;
-            margin: auto;
-            margin-top: 75px;
-            border-collapse: separate;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #333;
-            border-right: 1px solid #333;
-        }
-
-            th:first-child {
-                border-top-left-radius: 15px;
-            }
-
-            th:last-child {
-                border-top-right-radius: 15px;
-            }
-
-        tr:last-child td:first-child {
-            border-bottom-left-radius: 15px;
-        }
-
-        tr:last-child td:last-child {
-            border-bottom-right-radius: 15px;
-        }
-
-        th {
-            background-color: #00bfff;
-            color: #1a1a1a;
-        }
-
-        tr:nth-child(even) {
-            background-color: #333;
-        }
-
-        td:last-child, th:last-child {
-            border-right: none;
-        }
- 
-        .btn {
-            width: 6.5em;
-            height: 2.3em;
-            margin: 0.5em;
-            background: red;
-            color: white;
-            border: none;
-            border-radius: 0.625em;
-            font-size: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-}
-
-        .btn2 {
-            width: 6.5em;
-            height: 2.3em;
-            margin: 0.5em;
-            background: green;
-            color: white;
-            border: none;
-            border-radius: 0.625em;
-            font-size: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        button:hover {
-            color: black;
-        }
-
-        button:after {
-            content: "";
-            background: white;
-            position: absolute;
-            z-index: -1;
-            left: -20%;
-            right: -20%;
-            top: 0;
-            bottom: 0;
-            transform: skewX(-45deg) scale(0, 1);
-            transition: all 0.5s;
-        }
-
-        button:hover:after {
-            transform: skewX(-45deg) scale(1, 1);
-            -webkit-transition: all 0.5s;
-            transition: all 0.5s;
-        }
-
-
+        /* Your existing styles */
     </style>
 </head>
 @{
     var userID = ViewData["userID"];
-
 }
 <body>
     <h1 class="text-center" style="text-align: center; color: #fff; margin-top: 20px;">View Claims</h1>
+
+    <form asp-action="AutoProcessClaims" method="post" style="text-align: center; margin-bottom: 20px;">
+        <label for="minHoursWorked" style="color: #fff;">Min Hours Worked:</label>
+        <input type="number" id="minHoursWorked" name="minHoursWorked" required />
+        <label for="maxHourlyRate" style="color: #fff;">Max Hourly Rate:</label>
+        <input type="number" id="maxHourlyRate" name="maxHourlyRate" required />
+        <button type="submit" class="btn2">Auto Process Claims</button>
+    </form>
+
     <table>
         <thead>
             <tr>
@@ -171,4 +71,3 @@
         </tbody>
     </table>
 </body>
-@* //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EOF~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\ *@
