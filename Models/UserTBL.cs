@@ -8,6 +8,7 @@ namespace prog_poe_st10249266.Models
         public static string con_string = "Server=tcp:st10249266-sql-server.database.windows.net,1433;Initial Catalog=CLDV-DBS;Persist Security Info=False;User ID=entropy-3;Password=hifr@220404;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
         public static SqlConnection con = new SqlConnection(con_string);
+        public int UserID { get; set; } // Add UserID property
 
         public string Name { get; set; }
 
@@ -34,6 +35,27 @@ namespace prog_poe_st10249266.Models
             int rowsAffected = cmd.ExecuteNonQuery();
             con.Close();
             return rowsAffected;
+        }
+
+        public List<UserTBL> GetUserDetails()
+        {
+            List<UserTBL> users = new List<UserTBL>();
+            string sql = "SELECT userID, userSurname, userEmail FROM tblUsers";
+            SqlCommand cmd = new SqlCommand(sql, con);
+            con.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                UserTBL user = new UserTBL
+                {
+                    UserID = reader.GetInt32(0),
+                    Surname = reader.GetString(1),
+                    Email = reader.GetString(2)
+                };
+                users.Add(user);
+            }
+            con.Close();
+            return users;
         }
     }
 }
