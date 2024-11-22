@@ -215,6 +215,15 @@ namespace prog_poe_st10249266.Controllers
             return RedirectToAction("ViewClaims");
         }
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+        //method that allows the admin to view the details of the lecturer
+        public IActionResult LecturerDeatils()
+        {
+            UserTBL userTBL = new UserTBL();
+            List<UserTBL> users = userTBL.GetUserDetails();
+            return View(users);
+        }
+
     }
 }
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EOF~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\

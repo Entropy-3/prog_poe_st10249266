@@ -40,7 +40,7 @@ namespace prog_poe_st10249266.Models
         public List<UserTBL> GetUserDetails()
         {
             List<UserTBL> users = new List<UserTBL>();
-            string sql = "SELECT userID, userSurname, userEmail FROM tblUsers";
+            string sql = "SELECT user_ID, userName, userSurname, userEmail FROM tblUsers";
             SqlCommand cmd = new SqlCommand(sql, con);
             con.Open();
             SqlDataReader reader = cmd.ExecuteReader();
