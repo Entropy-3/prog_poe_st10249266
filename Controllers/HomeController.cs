@@ -244,6 +244,13 @@ namespace prog_poe_st10249266.Controllers
             return RedirectToAction("LecturerDeatils");
         }
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+        //method that allows the user to view approved claims
+        public IActionResult ApprovedClaims(int id)
+        {
+            List<ClaimTBL> approvedClaims = ClaimTBL.GetApprovedClaimsByUserId(id);
+            return View(approvedClaims);
+        }
 
     }
 }

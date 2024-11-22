@@ -1,4 +1,11 @@
-﻿@model List<prog_poe_st10249266.Models.UserTBL>
+﻿@model List<prog_poe_st10249266.Models.ClaimTBL>
+
+@{
+    // Calculate total hours worked and total amount due
+    var totalHoursWorked = Model.Sum(claim => claim.hoursWorked);
+    var totalAmountDue = Model.Sum(claim => claim.amountDue);
+}
+
 <head>
     <style>
         body {
@@ -23,6 +30,7 @@
             text-align: left;
             border-bottom: 1px solid #333;
             border-right: 1px solid #333;
+            color: #fff;
         }
 
             th:first-child {
@@ -55,31 +63,38 @@
         }
     </style>
 </head>
-<body style="background-color: #1a1a1a;">
-    <h1>Lecturer Details</h1>
+<body style="background-color: #1a1a1a; color: #fff;">
+    <h1>Approved Claims</h1>
 
     <table>
         <thead>
             <tr>
-                <th>User ID</th>
-                <th>User Surname</th>
-                <th>User Email</th>
-                <th>Actions</th>
+                <th>Claim ID</th>
+                <th>Document</th>
+                <th>Hours Worked</th>
+                <th>Amount</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var user in Model)
+            @foreach (var claim in Model)
             {
                 <tr>
-                    <td>@user.UserID</td>
-                    <td>@user.Surname</td>
-                    <td>@user.Email</td>
-                    <td>
-                        <a asp-action="EditUser" asp-route-id="@user.UserID" class="btn btn-primary">Edit</a>
-                        <a asp-action="ApprovedClaims" asp-route-id="@user.UserID" class="btn btn-secondary">View Approved Claims</a>
-                    </td>
+                    <td>@claim.claimID</td>
+                    <td><a href="@claim.fileURL" target="_blank" style="color: #00bfff;">View Document</a></td>
+                    <td>@claim.hoursWorked</td>
+                    <td>@claim.amountDue</td>
+                    <td>@claim.claimStatus</td>
                 </tr>
             }
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2"><strong>Total</strong></td>
+                <td><strong>@totalHoursWorked</strong></td>
+                <td><strong>@totalAmountDue</strong></td>
+                <td></td>
+            </tr>
+        </tfoot>
     </table>
 </body>

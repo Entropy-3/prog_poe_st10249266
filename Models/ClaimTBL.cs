@@ -105,7 +105,7 @@ namespace prog_poe_st10249266.Models
             return claims;
         }
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
-        //github copilot assisted with the swl statement
+        //github copilot assisted with the sql statement
         public int UpdateClaimStatus(int claimID, string newStatus)
         {
             string sql = "UPDATE tblClaims SET claimStatus = @NewStatus WHERE claim_id = @ClaimID";
@@ -116,6 +116,42 @@ namespace prog_poe_st10249266.Models
             int rowsAffected = cmd.ExecuteNonQuery();
             con.Close();
             return rowsAffected;
+        }
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+        //get all approved claims from the database for a specific user
+        //github copilot assisted with the sql statement
+        public static List<ClaimTBL> GetApprovedClaimsByUserId(int userId)
+        {
+            List<ClaimTBL> claims = new List<ClaimTBL>();
+
+            string sql = @"
+            SELECT c.claim_id, c.user_id, c.fileURL, c.hoursWorked, c.hourlyrate, c.amountDue, c.claimStatus, u.userName, u.userSurname
+            FROM tblClaims c
+            JOIN tblUsers u ON c.user_id = u.user_id
+            WHERE c.user_id = @UserID AND c.claimStatus = 'approved'";
+            SqlCommand cmd = new SqlCommand(sql, con);
+            cmd.Parameters.AddWithValue("@UserID", userId);
+            con.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                ClaimTBL claim = new ClaimTBL();
+                claim.claimID = Convert.ToInt32(reader["claim_id"]);
+                claim.userID = Convert.ToInt32(reader["user_id"]);
+                claim.fileURL = Convert.ToString(reader["fileURL"]);
+                claim.hoursWorked = Convert.ToInt32(reader["hoursWorked"]);
+                claim.hourlyrate = Convert.ToInt32(reader["hourlyrate"]);
+                claim.amountDue = Convert.ToInt32(reader["amountDue"]);
+                claim.claimStatus = Convert.ToString(reader["claimStatus"]);
+                claim.userName = Convert.ToString(reader["userName"]);
+                claim.userSurname = Convert.ToString(reader["userSurname"]);
+                claims.Add(claim);
+            }
+            reader.Close();
+            con.Close();
+
+            return claims;
         }
     }
 }
