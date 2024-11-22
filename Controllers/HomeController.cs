@@ -193,6 +193,38 @@ namespace prog_poe_st10249266.Controllers
 
 
 
+
+
+
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+        //method that automatically processes claims based on user input
+        [HttpPost]
+        public IActionResult AutoProcessClaims(int minHoursWorked, int maxHourlyRate)
+        {
+            List<ClaimTBL> claims = ClaimTBL.getPendingClaims();
+
+            foreach (var claim in claims)
+            {
+                if (claim.hoursWorked >= minHoursWorked && claim.hourlyrate <= maxHourlyRate)
+                {
+                    claim.UpdateClaimStatus(claim.claimID, "Approved");
+                }
+                else
+                {
+                    claim.UpdateClaimStatus(claim.claimID, "Rejected");
+                }
+            }
+
+            return RedirectToAction("ViewClaims");
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
     }
 }
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EOF~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
