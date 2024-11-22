@@ -75,6 +75,8 @@ namespace prog_poe_st10249266.Controllers
                 fileURL = fileURL,
                 hoursWorked = hoursWorked,
                 hourlyrate = hourlyRate,
+
+                //calculates the amount due based on hours worked and hourly rate set by the claim
                 amountDue = hoursWorked * hourlyRate,
                 claimStatus = "pending"
             };
@@ -190,12 +192,6 @@ namespace prog_poe_st10249266.Controllers
             claim.UpdateClaimStatus(claimID, "Rejected");
             return RedirectToAction("ViewClaims");
         }
-
-
-
-
-
-
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
         //method that automatically processes claims based on user input
